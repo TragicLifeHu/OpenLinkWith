@@ -4,3 +4,7 @@ dependencies {
     implementation project(':resolver')
     implementation project(':data')
 }
+
+android {
+    namespace 'com.tasomaniac.openwith.preferred.apps'
+}

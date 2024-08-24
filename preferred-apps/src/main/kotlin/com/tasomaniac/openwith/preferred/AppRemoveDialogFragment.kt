@@ -2,7 +2,9 @@ package com.tasomaniac.openwith.preferred
 
 import android.app.Dialog
 import android.content.Context
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.core.os.bundleOf
@@ -14,8 +16,14 @@ class AppRemoveDialogFragment : AppCompatDialogFragment() {
 
     private var callbacks: Callbacks? = null
 
+    private inline fun <reified T : Parcelable> Bundle.parcelable(key: String): T? = when {
+        SDK_INT >= 33 -> getParcelable(key, T::class.java)
+        else -> @Suppress("DEPRECATION") getParcelable(key) as? T
+    }
+
+
     private val info: DisplayActivityInfo
-        get() = requireArguments().getParcelable(EXTRA_INFO)!!
+        get() = requireArguments().parcelable(EXTRA_INFO)!!
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

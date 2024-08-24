@@ -55,4 +55,4 @@ enum class Feature(
     )
 }
 
-fun String.toFeature() = Feature.values().find { it.prefKey == this }!!
+fun String.toFeature() = Feature.entries.find { it.prefKey == this }!!

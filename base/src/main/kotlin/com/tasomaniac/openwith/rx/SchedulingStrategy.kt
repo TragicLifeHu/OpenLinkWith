@@ -1,28 +1,28 @@
 package com.tasomaniac.openwith.rx
 
-import io.reactivex.CompletableTransformer
-import io.reactivex.FlowableTransformer
-import io.reactivex.MaybeTransformer
-import io.reactivex.ObservableTransformer
-import io.reactivex.Scheduler
-import io.reactivex.SingleTransformer
-import io.reactivex.disposables.Disposable
+import io.reactivex.rxjava3.core.CompletableTransformer
+import io.reactivex.rxjava3.core.FlowableTransformer
+import io.reactivex.rxjava3.core.MaybeTransformer
+import io.reactivex.rxjava3.core.ObservableTransformer
+import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.core.SingleTransformer
+import io.reactivex.rxjava3.disposables.Disposable
 
 class SchedulingStrategy(private val executor: Scheduler, private val notifier: Scheduler) {
 
-    fun <T> forObservable() = ObservableTransformer<T, T> { observable ->
+    fun <T : Any> forObservable() = ObservableTransformer<T, T> { observable ->
         observable
             .subscribeOn(executor)
             .observeOn(notifier)
     }
 
-    fun <T> forFlowable() = FlowableTransformer<T, T> { flowable ->
+    fun <T : Any> forFlowable() = FlowableTransformer<T, T> { flowable ->
         flowable
             .subscribeOn(executor)
             .observeOn(notifier)
     }
 
-    fun <T> forMaybe() = MaybeTransformer<T, T> { maybe ->
+    fun <T : Any> forMaybe() = MaybeTransformer<T, T> { maybe ->
         maybe
             .subscribeOn(executor)
             .observeOn(notifier)
@@ -34,7 +34,7 @@ class SchedulingStrategy(private val executor: Scheduler, private val notifier: 
             .observeOn(notifier)
     }
 
-    fun <T> forSingle() = SingleTransformer<T, T> { single ->
+    fun <T : Any> forSingle() = SingleTransformer<T, T> { single ->
         single
             .subscribeOn(executor)
             .observeOn(notifier)

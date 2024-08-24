@@ -2,7 +2,11 @@ apply from: configFile('android-library-config.gradle')
 
 dependencies {
     api 'junit:junit:4.13.2'
-    api 'org.assertj:assertj-core:3.21.0'
-    api 'org.mockito:mockito-core:4.2.0'
+    api 'org.assertj:assertj-core:3.26.3'
+    api 'org.mockito:mockito-core:5.12.0'
     api 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
+}
+
+android {
+    namespace 'com.tasomaniac.openwith.test.support'
 }

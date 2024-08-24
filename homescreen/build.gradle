@@ -6,3 +6,7 @@ dependencies {
     implementation 'com.tasomaniac:delayed-progress:0.4'
     implementation "com.squareup.okhttp3:okhttp:$versions.okHttp"
 }
+
+android {
+    namespace 'com.tasomaniac.openwith.homescreen'
+}

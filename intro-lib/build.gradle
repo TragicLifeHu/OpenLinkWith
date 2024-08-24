@@ -3,3 +3,7 @@ apply from: configFile('android-library-config.gradle')
 dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
 }
+
+android {
+    namespace 'com.tasomaniac.openwith.intro.lib'
+}

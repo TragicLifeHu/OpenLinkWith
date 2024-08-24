@@ -11,9 +11,9 @@ import com.tasomaniac.openwith.data.Analytics
 import com.tasomaniac.openwith.extensions.componentName
 import com.tasomaniac.openwith.resolver.DisplayActivityInfo
 import dagger.android.support.DaggerAppCompatActivity
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.addTo
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import javax.inject.Inject
 
 class PreferredBrowserActivity : DaggerAppCompatActivity(), BrowsersAdapter.Listener {

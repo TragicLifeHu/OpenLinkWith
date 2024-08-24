@@ -101,7 +101,7 @@ class ResolveListGrouper {
             if (startApp == null) {
                 usePkg = true;
             }
-            if (!false) {
+            if (true) {
                 // Use HashSet to track duplicates
                 HashSet<CharSequence> duplicates = new HashSet<>();
                 duplicates.add(startApp);

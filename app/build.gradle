@@ -1,6 +1,9 @@
-apply plugin: 'com.android.application'
+plugins {
+  id 'com.android.application'
+  id 'com.novoda.build-properties'
+}
+
 apply from: configFile('android-common-config.gradle')
-apply plugin: 'com.novoda.build-properties'
 
 buildProperties {
   signing.using(configFile('release.signing')) | configFile('debug.signing')
@@ -14,8 +17,7 @@ android {
     versionCode versions.versionCode
     versionName versions.versionName
     buildConfigString 'GIT_SHA', gitSha
-
-    resConfigs 'ar', 'de', 'en', 'es', 'fi', 'fr', 'hi', 'hr', 'in', 'it', 'iw', 'ja', 'ko', 'nl', 'pl', 'pt-rBR', 'pt-rPT', 'ru', 'sv', 'tr', 'uk', 'vi', 'zh-rCN', 'zh-rTW'
+    resourceConfigurations += ['ar', 'de', 'en', 'es', 'fi', 'fr', 'hi', 'hr', 'in', 'it', 'iw', 'ja', 'ko', 'nl', 'pl', 'pt-rBR', 'pt-rPT', 'ru', 'sv', 'tr', 'uk', 'vi', 'zh-rCN', 'zh-rTW']
   }
 
   signingConfigs {
@@ -45,13 +47,21 @@ android {
     }
   }
 
-  flavorDimensions 'store'
+  flavorDimensions += ['store']
   productFlavors {
     floss {
+      dimension "store"
       applicationIdSuffix '.floss'
       versionNameSuffix '-floss'
     }
-    play {}
+    play {
+      dimension "store"
+    }
+  }
+  namespace 'com.tasomaniac.openwith'
+  buildFeatures {
+    buildConfig true
+    viewBinding true
   }
 }
 
@@ -76,8 +86,8 @@ dependencies {
   implementation project(':redirect')
   implementation project(':resolver')
 
-  implementation 'androidx.preference:preference-ktx:1.1.1'
-  implementation 'androidx.sharetarget:sharetarget:1.2.0-rc01'
+  implementation 'androidx.preference:preference-ktx:1.2.1'
+  implementation 'androidx.sharetarget:sharetarget:1.2.0'
 
   implementation "com.squareup.okhttp3:okhttp:$versions.okHttp"
 

@@ -4,3 +4,10 @@ dependencies {
     implementation project(':base-prefs')
     implementation project(':browser-resolver')
 }
+
+android {
+    namespace 'com.tasomaniac.openwith.browser.preferred'
+    buildFeatures {
+        viewBinding true
+    }
+}

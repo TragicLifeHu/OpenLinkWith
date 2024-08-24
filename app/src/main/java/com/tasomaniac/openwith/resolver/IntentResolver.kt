@@ -9,9 +9,8 @@ import android.os.Build.VERSION_CODES.M
 import com.tasomaniac.openwith.BuildConfig
 import com.tasomaniac.openwith.extensions.isHttp
 import com.tasomaniac.openwith.rx.SchedulingStrategy
-import io.reactivex.Observable
-import io.reactivex.disposables.Disposable
-import io.reactivex.disposables.Disposables
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.Disposable
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -26,7 +25,7 @@ internal class IntentResolver @Inject constructor(
 
     private var result: IntentResolverResult? = null
     private var listener = Listener.NO_OP
-    private var disposable: Disposable = Disposables.empty()
+    private var disposable: Disposable = Disposable.empty()
 
     var lastChosenComponent: ComponentName? = null
 

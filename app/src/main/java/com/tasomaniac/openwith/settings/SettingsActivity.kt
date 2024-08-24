@@ -10,10 +10,9 @@ import com.tasomaniac.openwith.R
 import com.tasomaniac.openwith.data.Analytics
 import com.tasomaniac.openwith.data.prefs.BooleanPreference
 import com.tasomaniac.openwith.data.prefs.TutorialShown
+import com.tasomaniac.openwith.databinding.ActivitySettingsBinding
 import com.tasomaniac.openwith.intro.IntroActivity
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.activity_settings.collapsing_toolbar
-import kotlinx.android.synthetic.main.activity_settings.toolbar
 import javax.inject.Inject
 
 class SettingsActivity :
@@ -24,16 +23,20 @@ class SettingsActivity :
     @Inject @TutorialShown lateinit var tutorialShown: BooleanPreference
     @Inject lateinit var analytics: Analytics
     @Inject lateinit var sharedPreferences: SharedPreferences
+    private lateinit var binding: ActivitySettingsBinding
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
         if (!tutorialShown.get()) {
             startActivity(IntroActivity.newIntent(this))
             tutorialShown.set(true)
         }
 
         setContentView(R.layout.activity_settings)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
@@ -46,7 +49,7 @@ class SettingsActivity :
 
     override fun setTitle(titleId: Int) {
         super.setTitle(titleId)
-        collapsing_toolbar.title = getString(titleId)
+        binding.collapsingToolbar.title = getString(titleId)
     }
 
     override fun onResume() {
@@ -66,14 +69,14 @@ class SettingsActivity :
 
     override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
         supportFragmentManager.commit {
-            val fragment = supportFragmentManager.fragmentFactory.instantiate(classLoader, pref.fragment)
+            val fragment = supportFragmentManager.fragmentFactory.instantiate(classLoader, pref.fragment!!)
             replace(R.id.fragment_container, fragment)
             addToBackStack(null)
         }
         return true
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, s: String) {
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         BackupManager(this).dataChanged()
     }
 }

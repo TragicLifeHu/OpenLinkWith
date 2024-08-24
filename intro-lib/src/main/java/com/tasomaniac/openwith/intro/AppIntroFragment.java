@@ -28,7 +28,7 @@ public class AppIntroFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null && getArguments().size() != 0) {
+        if (getArguments() != null && !getArguments().isEmpty()) {
             drawable = getArguments().getInt(Builder.ARG_DRAWABLE);
             title = getArguments().getInt(Builder.ARG_TITLE);
             description = getArguments().getInt(Builder.ARG_DESC);

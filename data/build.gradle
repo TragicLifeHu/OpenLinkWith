@@ -10,5 +10,10 @@ kapt {
 dependencies {
     api "androidx.room:room-runtime:$versions.room"
     implementation "androidx.room:room-rxjava2:$versions.room"
+    implementation "androidx.room:room-rxjava3:$versions.room"
     kapt "androidx.room:room-compiler:$versions.room"
+}
+
+android {
+    namespace 'com.tasomaniac.openwith.data'
 }

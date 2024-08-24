@@ -8,8 +8,10 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentSender
 import android.graphics.BitmapFactory
+import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.M
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Window
@@ -41,10 +43,15 @@ class AddToHomeScreenDialogFragment : DaggerAppCompatDialogFragment() {
     private lateinit var titleView: EditText
     private lateinit var progressBar: DelayedProgressBar
 
+    private inline fun <reified T : Parcelable> Bundle.parcelable(key: String): T? = when {
+        SDK_INT >= 33 -> getParcelable(key, T::class.java)
+        else -> @Suppress("DEPRECATION") getParcelable(key) as? T
+    }
+
     private val activityToAdd: DisplayActivityInfo
-        get() = requireArguments().getParcelable(KEY_ACTIVITY_TO_ADD)!!
+        get() = requireArguments().parcelable(KEY_ACTIVITY_TO_ADD)!!
     private val intent: Intent
-        get() = requireArguments().getParcelable(KEY_INTENT)!!
+        get() = requireArguments().parcelable(KEY_INTENT)!!
 
     private val positiveButton: Button
         get() = (dialog as AlertDialog).getButton(DialogInterface.BUTTON_POSITIVE)

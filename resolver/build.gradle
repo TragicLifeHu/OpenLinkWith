@@ -3,3 +3,11 @@ apply from: configFile('android-library-config.gradle')
 dependencies {
     testImplementation project(':test-support')
 }
+
+android {
+    namespace 'com.tasomaniac.openwith.resolver'
+    buildFeatures {
+        buildConfig true
+        viewBinding true
+    }
+}

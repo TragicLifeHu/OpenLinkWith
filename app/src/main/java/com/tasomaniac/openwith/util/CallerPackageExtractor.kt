@@ -33,7 +33,7 @@ sealed class CallerPackageExtractor {
     }
 }
 
-private object EmptyExtractor : CallerPackageExtractor() {
+private data object EmptyExtractor : CallerPackageExtractor() {
     override fun extract(): String? = null
 }
 

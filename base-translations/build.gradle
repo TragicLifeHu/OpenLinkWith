@@ -3,3 +3,7 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion versions.compileSdk
 }
+
+android {
+    namespace 'com.tasomaniac.openwith.base.translations'
+}

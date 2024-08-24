@@ -33,8 +33,7 @@ class BrowserHandler(
             addAllBrowsers(browsers)
         }
 
-        val mode = browserPreferences.mode
-        when (mode) {
+        when (val mode = browserPreferences.mode) {
             is Mode.None -> removeBrowsers(browsers)
             is Mode.Browser -> {
                 removeBrowsers(browsers)
@@ -45,6 +44,8 @@ class BrowserHandler(
                     browserPreferences.mode = Mode.AlwaysAsk
                 }
             }
+
+            else -> {}
         }
     }
 

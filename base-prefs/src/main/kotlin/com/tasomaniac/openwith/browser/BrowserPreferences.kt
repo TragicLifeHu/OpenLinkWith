@@ -40,8 +40,8 @@ class BrowserPreferences @Inject constructor(private val sharedPreferences: Shar
 
     sealed class Mode(val value: String) {
 
-        object None : Mode("none")
-        object AlwaysAsk : Mode("always_ask")
+        data object None : Mode("none")
+        data object AlwaysAsk : Mode("always_ask")
         data class Browser(val displayLabel: String, val componentName: ComponentName) : Mode("browser")
     }
 

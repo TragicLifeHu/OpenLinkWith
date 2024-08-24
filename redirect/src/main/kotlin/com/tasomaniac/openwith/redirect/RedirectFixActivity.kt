@@ -9,10 +9,10 @@ import com.tasomaniac.android.widget.DelayedProgressBar
 import com.tasomaniac.openwith.resolver.ResolverActivity
 import com.tasomaniac.openwith.rx.SchedulingStrategy
 import dagger.android.support.DaggerAppCompatActivity
-import io.reactivex.Maybe
-import io.reactivex.MaybeTransformer
-import io.reactivex.Single
-import io.reactivex.disposables.Disposable
+import io.reactivex.rxjava3.core.Maybe
+import io.reactivex.rxjava3.core.MaybeTransformer
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.Disposable
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import javax.inject.Inject
@@ -44,7 +44,7 @@ class RedirectFixActivity : DaggerAppCompatActivity() {
             }
             .compose(redirectTransformer)
             .map(HttpUrl::toString)
-            .toSingle(source.dataString!!) // fall-back to original data if anything goes wrong
+            .toSingle() // fall-back to original data if anything goes wrong
             .map(urlFix::fixUrls) // fix again after potential redirect
             .map { source.withUrl(it) }
             .compose(schedulingStrategy.forSingle())

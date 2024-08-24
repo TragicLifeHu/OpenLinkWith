@@ -41,18 +41,18 @@ public class ResolverDrawerLayout extends ViewGroup implements NestedScrollingPa
     /**
      * Max width of the whole drawer layout
      */
-    private int mMaxWidth;
+    private final int mMaxWidth;
 
     /**
      * Max total visible height of views not marked always-show when in the closed/initial state
      */
-    private int mMaxCollapsedHeight;
+    private final int mMaxCollapsedHeight;
 
     /**
      * Max total visible height of views not marked always-show when in the closed/initial state
      * when a default option is present
      */
-    private int mMaxCollapsedHeightSmall;
+    private final int mMaxCollapsedHeightSmall;
 
     private boolean mSmallCollapsed;
 

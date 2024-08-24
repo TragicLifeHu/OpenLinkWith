@@ -1,18 +1,16 @@
-package com.tasomaniac.openwith;
+package com.tasomaniac.openwith
 
-import com.tasomaniac.openwith.data.Analytics;
-import dagger.Module;
-import dagger.Provides;
-
-import javax.inject.Singleton;
+import com.tasomaniac.openwith.data.Analytics
+import com.tasomaniac.openwith.data.Analytics.DebugAnalytics
+import dagger.Module
+import dagger.Provides
+import javax.inject.Singleton
 
 @Module
-class AnalyticsModule {
-
+internal object AnalyticsModule {
     @Provides
     @Singleton
-    static Analytics provideAnalytics() {
-        return new Analytics.DebugAnalytics();
+    fun provideAnalytics(): Analytics {
+        return DebugAnalytics()
     }
-
 }

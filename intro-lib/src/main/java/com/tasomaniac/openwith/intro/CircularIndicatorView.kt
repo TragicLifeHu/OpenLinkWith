@@ -1,81 +1,83 @@
-package com.tasomaniac.openwith.intro;
+package com.tasomaniac.openwith.intro
 
-import android.content.Context;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.util.AttributeSet;
-import android.view.Gravity;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import androidx.core.content.ContextCompat;
-import com.tasomaniac.openwith.intro.lib.R;
+import android.content.Context
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
+import android.os.Build
+import android.util.AttributeSet
+import android.view.Gravity
+import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
+import com.tasomaniac.openwith.intro.lib.R
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
+class CircularIndicatorView @JvmOverloads constructor(
+    context: Context?,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+    defStyleRes: Int = 0
+) : LinearLayout(context, attrs, defStyleAttr) {
+    private var mDots: MutableList<ImageView>? = null
+    private var mSlideCount = 0
+    private var selectedDotColor = DEFAULT_COLOR
+    private var unselectedDotColor = DEFAULT_COLOR
 
-public class CircularIndicatorView extends LinearLayout {
-    private static final int FIRST_PAGE_NUM = 0;
-    private static final int DEFAULT_COLOR = 1;
+    private var mCurrentPosition = 0
 
-    private List<ImageView> mDots;
-    private int mSlideCount;
-    private int selectedDotColor = DEFAULT_COLOR;
-    private int unselectedDotColor = DEFAULT_COLOR;
-
-    private int mCurrentPosition;
-
-    public CircularIndicatorView(Context context) {
-        this(context, null);
+    init {
+        gravity = Gravity.CENTER
+        orientation = HORIZONTAL
     }
 
-    public CircularIndicatorView(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
+    fun initialize(slideCount: Int) {
+        mDots = ArrayList()
+        mSlideCount = slideCount
+        selectedDotColor = -1
+        unselectedDotColor = -1
 
-    public CircularIndicatorView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
+        for (i in 0 until slideCount) {
+            val dot = ImageView(context)
+            dot.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.indicator_dot_grey))
 
-    public CircularIndicatorView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr);
+            val params = LayoutParams(
+                LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT
+            )
 
-        setGravity(Gravity.CENTER);
-        setOrientation(HORIZONTAL);
-    }
-
-    void initialize(int slideCount) {
-        mDots = new ArrayList<>();
-        mSlideCount = slideCount;
-        selectedDotColor = -1;
-        unselectedDotColor = -1;
-
-        for (int i = 0; i < slideCount; i++) {
-            ImageView dot = new ImageView(getContext());
-            dot.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.indicator_dot_grey));
-
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
-
-            addView(dot, params);
-            mDots.add(dot);
+            addView(dot, params)
+            (mDots as ArrayList<ImageView>).add(dot)
         }
 
-        selectPosition(FIRST_PAGE_NUM);
+        selectPosition(FIRST_PAGE_NUM)
     }
 
-    void selectPosition(int index) {
-        mCurrentPosition = index;
-        for (int i = 0; i < mSlideCount; i++) {
-            int drawableId = (i == index) ? (R.drawable.indicator_dot_white) : (R.drawable.indicator_dot_grey);
-            Drawable drawable = ContextCompat.getDrawable(getContext(), drawableId);
-            if (selectedDotColor != DEFAULT_COLOR && i == index)
-                drawable.mutate().setColorFilter(selectedDotColor, PorterDuff.Mode.SRC_IN);
-            if (unselectedDotColor != DEFAULT_COLOR && i != index)
-                drawable.mutate().setColorFilter(unselectedDotColor, PorterDuff.Mode.SRC_IN);
-            mDots.get(i).setImageDrawable(drawable);
+    fun selectPosition(index: Int) {
+        mCurrentPosition = index
+        for (i in 0 until mSlideCount) {
+            val drawableId = if (i == index) R.drawable.indicator_dot_white else R.drawable.indicator_dot_grey
+            val drawable = ContextCompat.getDrawable(context, drawableId)
+            if (i == index) {
+                val colorFilter = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    BlendModeColorFilter(selectedDotColor, BlendMode.SRC_IN)} else {
+                    PorterDuffColorFilter(selectedDotColor, PorterDuff.Mode.SRC_IN)
+                }
+                drawable!!.mutate().colorFilter = colorFilter
+            } else {
+                val colorFilter = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    BlendModeColorFilter(unselectedDotColor, BlendMode.SRC_IN)
+                } else {
+                    PorterDuffColorFilter(unselectedDotColor, PorterDuff.Mode.SRC_IN)
+                }
+                drawable!!.mutate().colorFilter = colorFilter
+            }
+            mDots!![i].setImageDrawable(drawable)
         }
+    }
+
+    companion object {
+        private const val FIRST_PAGE_NUM = 0
+        private const val DEFAULT_COLOR = 1
     }
 }

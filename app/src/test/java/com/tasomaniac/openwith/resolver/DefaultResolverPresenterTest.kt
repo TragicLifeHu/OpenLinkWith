@@ -15,7 +15,7 @@ import com.tasomaniac.openwith.R
 import com.tasomaniac.openwith.data.PreferredAppDao
 import com.tasomaniac.openwith.resolver.preferred.PreferredResolver
 import com.tasomaniac.openwith.test.testScheduling
-import io.reactivex.Maybe
+import io.reactivex.rxjava3.core.Maybe
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test

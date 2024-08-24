@@ -24,7 +24,7 @@ class BrowserIntentChecker @Inject constructor(
         val resolved = resolveSource(sourceIntent).toComponents()
         val browsers = browserResolver.queryBrowsers().toComponents()
 
-        return (resolved - browsers).isEmpty()
+        return (resolved - browsers.toSet()).isEmpty()
     }
 
     private fun resolveSource(sourceIntent: Intent): List<ResolveInfo> {

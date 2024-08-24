@@ -19,7 +19,7 @@ class FeaturesListSettings @Inject constructor(
     }
 
     override fun resume() {
-        Feature.values().forEach { feature ->
+        Feature.entries.forEach { feature ->
             val enabled = featurePreferences.isEnabled(feature)
             fragment.findPreference<Preference>(feature.prefKey)?.setSummary(enabled.toSummary())
         }

@@ -6,9 +6,9 @@ import com.tasomaniac.openwith.data.PreferredApp
 import com.tasomaniac.openwith.data.PreferredAppDao
 import com.tasomaniac.openwith.resolver.preferred.PreferredResolver
 import com.tasomaniac.openwith.rx.SchedulingStrategy
-import io.reactivex.Completable
-import io.reactivex.disposables.Disposable
-import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import timber.log.Timber
 import javax.inject.Inject
 

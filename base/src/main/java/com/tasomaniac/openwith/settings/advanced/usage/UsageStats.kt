@@ -6,8 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.provider.Settings
 import androidx.core.content.getSystemService
-import io.reactivex.Completable
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 

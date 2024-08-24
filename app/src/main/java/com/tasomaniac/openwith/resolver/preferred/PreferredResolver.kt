@@ -7,7 +7,7 @@ import com.tasomaniac.openwith.data.PreferredApp
 import com.tasomaniac.openwith.data.PreferredAppDao
 import com.tasomaniac.openwith.resolver.DisplayActivityInfo
 import com.tasomaniac.openwith.resolver.IconLoader
-import io.reactivex.Maybe
+import io.reactivex.rxjava3.core.Maybe
 import javax.inject.Inject
 
 internal class PreferredResolver @Inject constructor(

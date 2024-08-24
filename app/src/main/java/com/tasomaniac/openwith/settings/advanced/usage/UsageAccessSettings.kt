@@ -14,8 +14,8 @@ import com.tasomaniac.openwith.extensions.restart
 import com.tasomaniac.openwith.rx.SchedulingStrategy
 import com.tasomaniac.openwith.settings.Settings
 import com.tasomaniac.openwith.settings.SettingsFragment
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.addTo
 import javax.inject.Inject
 
 class UsageAccessSettings @Inject constructor(

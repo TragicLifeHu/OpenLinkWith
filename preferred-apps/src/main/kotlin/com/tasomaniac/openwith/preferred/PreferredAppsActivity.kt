@@ -19,9 +19,9 @@ import com.tasomaniac.openwith.resolver.IconLoader
 import com.tasomaniac.openwith.resolver.ItemClickListener
 import com.tasomaniac.openwith.rx.SchedulingStrategy
 import dagger.android.support.DaggerAppCompatActivity
-import io.reactivex.Completable
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.addTo
 import javax.inject.Inject
 
 class PreferredAppsActivity : DaggerAppCompatActivity(), ItemClickListener, AppRemoveDialogFragment.Callbacks {
@@ -90,7 +90,7 @@ class PreferredAppsActivity : DaggerAppCompatActivity(), ItemClickListener, AppR
                     displayIcon = iconLoader.loadFor(it.activityInfo)
                 }
             }
-        }
+        }.toList()
     }
 
     override fun onAppRemoved(info: DisplayActivityInfo) {

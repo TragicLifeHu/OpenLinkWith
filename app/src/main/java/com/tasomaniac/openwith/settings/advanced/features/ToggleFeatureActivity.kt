@@ -11,13 +11,9 @@ import androidx.core.text.parseAsHtml
 import androidx.preference.Preference
 import com.tasomaniac.openwith.R
 import com.tasomaniac.openwith.data.Analytics
+import com.tasomaniac.openwith.databinding.ToggleFeatureActivityBinding
 import com.tasomaniac.openwith.settings.advanced.features.custom.view.FeatureToggleCustomView
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.toggle_feature_activity.featureCustomContent
-import kotlinx.android.synthetic.main.toggle_feature_activity.featureDetails
-import kotlinx.android.synthetic.main.toggle_feature_activity.featureImage
-import kotlinx.android.synthetic.main.toggle_feature_activity.featureToggle
-import kotlinx.android.synthetic.main.toggle_feature_activity.toolbar
 import javax.inject.Inject
 
 @TargetApi(M)
@@ -29,9 +25,12 @@ class ToggleFeatureActivity : DaggerAppCompatActivity() {
     @Inject lateinit var sideEffects: Set<@JvmSuppressWildcards FeatureToggleSideEffect>
     @Inject lateinit var customViews: Map<Feature, @JvmSuppressWildcards FeatureToggleCustomView>
 
+    private lateinit var binding: ToggleFeatureActivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.toggle_feature_activity)
+        binding = ToggleFeatureActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val feature = intent.featureKey.toFeature()
         setupInitialState(feature)
@@ -46,14 +45,14 @@ class ToggleFeatureActivity : DaggerAppCompatActivity() {
 
     private fun setupInitialState(feature: Feature) {
         val enabled = featurePreferences.isEnabled(feature)
-        featureToggle.isChecked = enabled
-        featureToggle.setText(enabled.toSummary())
+        binding.featureToggle.isChecked = enabled
+        binding.featureToggle.setText(enabled.toSummary())
     }
 
     private fun setupToggle(feature: Feature) {
-        featureToggle.setOnCheckedChangeListener { _, enabled ->
+        binding.featureToggle.setOnCheckedChangeListener { _, enabled ->
             featurePreferences.setEnabled(feature, enabled)
-            featureToggle.setText(enabled.toSummary())
+            binding.featureToggle.setText(enabled.toSummary())
             featureToggler.toggleFeature(feature, enabled)
 
             sideEffects.forEach { it.featureToggled(feature, enabled) }
@@ -61,19 +60,19 @@ class ToggleFeatureActivity : DaggerAppCompatActivity() {
     }
 
     private fun setupTitle(feature: Feature) {
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         setTitle(feature.titleRes)
     }
 
     private fun setupDetails(feature: Feature) {
-        featureDetails.text = getString(feature.detailsRes).parseAsHtml()
+        binding.featureDetails.text = getString(feature.detailsRes).parseAsHtml()
         if (feature.imageRes != null) {
-            featureImage.setImageResource(feature.imageRes)
+            binding.featureImage.setImageResource(feature.imageRes)
         } else {
-            featureImage.visibility = View.GONE
+            binding.featureImage.visibility = View.GONE
         }
-        customViews[feature]?.bindCustomContent(featureCustomContent)
+        customViews[feature]?.bindCustomContent(binding.featureCustomContent)
     }
 
     @StringRes

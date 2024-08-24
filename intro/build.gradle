@@ -4,3 +4,7 @@ dependencies {
     api project(':intro-lib')
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
 }
+
+android {
+    namespace 'com.tasomaniac.openwith.intro'
+}

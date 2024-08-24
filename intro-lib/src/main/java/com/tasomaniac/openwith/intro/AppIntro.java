@@ -18,12 +18,13 @@ import dagger.android.support.DaggerAppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class AppIntro extends DaggerAppCompatActivity {
 
     private PagerAdapter mPagerAdapter;
     private ViewPager2 pager;
-    private List<Fragment> fragments = new ArrayList<>();
+    private final List<Fragment> fragments = new ArrayList<>();
     private int numberOfPages;
     private CircularIndicatorView mController;
     private View nextButton;
@@ -107,7 +108,7 @@ public abstract class AppIntro extends DaggerAppCompatActivity {
     public boolean onKeyDown(int code, KeyEvent event) {
         if (code == KeyEvent.KEYCODE_ENTER || code == KeyEvent.KEYCODE_BUTTON_A || code == KeyEvent.KEYCODE_DPAD_CENTER) {
             ViewPager vp = this.findViewById(R.id.view_pager);
-            if (vp.getCurrentItem() == vp.getAdapter().getCount() - 1) {
+            if (vp.getCurrentItem() == Objects.requireNonNull(vp.getAdapter()).getCount() - 1) {
                 onDonePressed();
             } else {
                 vp.setCurrentItem(vp.getCurrentItem() + 1);

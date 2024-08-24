@@ -1,7 +1,12 @@
 apply from: configFile('android-library-config.gradle')
+apply plugin: 'kotlin-parcelize'
 
 dependencies {
     api project(':base-translations')
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
-    api "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
+    api "org.jetbrains.kotlin:kotlin-stdlib-common:$versions.kotlin"
+}
+
+android {
+    namespace 'com.tasomaniac.openwith.base'
 }

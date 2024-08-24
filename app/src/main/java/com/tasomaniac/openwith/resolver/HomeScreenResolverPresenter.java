@@ -58,30 +58,22 @@ class HomeScreenResolverPresenter implements ResolverPresenter {
 
     }
 
-    private static class ViewListener implements ResolverView.Listener {
-
-        private final IntentResolver intentResolver;
-        private final ResolverView view;
-
-        ViewListener(IntentResolver intentResolver, ResolverView view) {
-            this.intentResolver = intentResolver;
-            this.view = view;
-        }
+    private record ViewListener(IntentResolver intentResolver, ResolverView view) implements ResolverView.Listener {
 
         @Override
-        public void onActionButtonClick(boolean always) {
-            throw new IllegalStateException("Action buttons should not be visible for AddToHomeScreen");
-        }
+            public void onActionButtonClick(boolean always) {
+                throw new IllegalStateException("Action buttons should not be visible for AddToHomeScreen");
+            }
 
-        @Override
-        public void onItemClick(DisplayActivityInfo activityInfo) {
-            Intent intent = activityInfo.intentFrom(intentResolver.getSourceIntent());
-            view.displayAddToHomeScreenDialog(activityInfo, intent);
-        }
+            @Override
+            public void onItemClick(DisplayActivityInfo activityInfo) {
+                Intent intent = activityInfo.intentFrom(intentResolver.getSourceIntent());
+                view.displayAddToHomeScreenDialog(activityInfo, intent);
+            }
 
-        @Override
-        public void onPackagesChanged() {
-            intentResolver.resolve();
+            @Override
+            public void onPackagesChanged() {
+                intentResolver.resolve();
+            }
         }
-    }
 }

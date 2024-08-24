@@ -1,7 +1,7 @@
 package com.tasomaniac.openwith.redirect
 
 import com.tasomaniac.openwith.rx.SchedulingStrategy
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import okhttp3.Call
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
